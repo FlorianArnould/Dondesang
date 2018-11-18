@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Don de sang</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="login_info">Login info</string>
+    <string name="saved_cookies">Saved cookies</string>
+    <string name="mes_dons">Mes dons</string>
+    <string name="mes_infos_personnelles">Mes infos personnelles</string>
+    <string name="notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="donation_id">ID Donneur *</string>
+    <string name="current_name">Nom d\'usage</string>
+    <string name="birth_name">Nom de naissance *</string>
+    <string name="birth_place">Lieu de naissance *</string>
+    <string name="address">N° et voie</string>
+    <string name="home_type">Immeuble / Résidence</string>
+    <string name="building">Etage / Bât / Escalier</string>
+    <string name="place_of"><![CDATA[Lieu-dit & BP]]></string>
+    <string name="weight">Poids (kg)</string>
+    <string name="height">Taille (cm)</string>
+    <string name="personal_number">Téléphone personnel</string>
+    <string name="mobile_number">Téléphone mobile</string>
+    <string name="professional_number">Téléphone professionnel</string>
+    <string name="email">Email *</string>
+    <string name="zip_code">CP</string>
+    <string name="city">Ville</string>
+    <string name="next_blood_donation">Prochain don de sang</string>
+    <string name="next_platelet_donation">Prochain don de plaquettes</string>
+    <string name="next_plasma_donation">Prochain don de plasma</string>
+    <string name="after_donation_congrats">Félicitations d\'après don</string>
+    <string name="congrats_title">Félicitations</string>
+    <string name="congrats_message">Nous vous félicitons pour votre nouveau don de</string>
+    <string name="blood">sang</string>
+    <string name="platelets">plaquettes</string>
+    <string name="plasma">plasma</string>
+    <string name="notification_preferences">notification preferences</string>
+    <string name="next_blood_donation_notification">next blood donation notification</string>
+    <string name="next_platelet_donation_notification">next platelet donation notification</string>
+    <string name="next_plasma_donation_notification">next plasma donation notification</string>
+    <string name="after_donation_congrats_notification">after donation congrats notification</string>
+    <string name="first_name">Prénom *</string>
+    <string name="birth_date">Date de naissance *</string>
+    <string name="blood_donation">Don de sang</string>
+    <string name="plasma_donation">Don de plasma</string>
+    <string name="platelets_donation">Don de plaquettes</string>
+
+    <string name="blood_donation_message">Les globules rouges représentent 44% du sang</string>
+    <string name="platelets_donation_message">Les plaquettes et les globules blancs représentent moins de 1% du sang</string>
+    <string name="plasma_donation_message">Le plasma représente 55% du sang</string>
+    <string name="username_icon">username icon</string>
+    <string name="username">N° Donneur</string>
+    <string name="lock_icon">Lock icon</string>
+    <string name="password">Mot de passe</string>
+    <string name="sign_in">Connexion</string>
+    <string name="result_icon">Result icon</string>
+</resources>
