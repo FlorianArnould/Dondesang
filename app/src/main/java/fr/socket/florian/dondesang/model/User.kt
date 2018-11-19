@@ -4,17 +4,14 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
 
-import org.json.JSONException
 import org.json.JSONObject
 
-import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.ArrayList
 import java.util.Date
 import java.util.Locale
 
 @Parcelize
-class User(
+data class User(
     val id: String,
     val name: String,
     val marriedName: String,
@@ -46,73 +43,72 @@ class User(
     val plasmaDonationsHistory: Array<Donation>
     ) : Parcelable {
 
-    val lastDonationDate: Date?
-        get() {
-            val array = bloodDonationsHistory + plateletsDonationsHistory + plasmaDonationsHistory
-            if(array.isEmpty()){
-                return null
-            }
-            var last = array[0].date
-            for (donation in array) {
-                if (last < donation.date) {
-                    last = donation.date
-                }
-            }
-            return last
+    fun lastDonationDate(): Date? {
+        val array = bloodDonationsHistory + plateletsDonationsHistory + plasmaDonationsHistory
+        if(array.isEmpty()){
+            return null
         }
+        var last = array[0].date
+        for (donation in array) {
+            if (last < donation.date) {
+                last = donation.date
+            }
+        }
+        return last
+    }
 
     companion object {
         fun parse(json: JSONObject): User {
 
-            val donnor = json.getJSONObject("result").getJSONObject("content").getJSONObject("value").getJSONObject("donneur")
+            val donner = json.getJSONObject("result").getJSONObject("content").getJSONObject("value").getJSONObject("donneur")
 
-            val dfsource = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.FRANCE)
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.FRANCE)
 
-            val nbBloodDonations = donnor.getInt("nbDonSang")
-            val nbPlateletsDonations = donnor.getInt("nbDonPlaquette")
-            val nbPlasmaDonations = donnor.getInt("nbDonPlasma")
+            val nbBloodDonations = donner.getInt("nbDonSang")
+            val nbPlateletsDonations = donner.getInt("nbDonPlaquette")
+            val nbPlasmaDonations = donner.getInt("nbDonPlasma")
 
             return User (
-                id = loadString(donnor, "identifiantMDD"),
+                id = loadString(donner, "identifiantMDD"),
 
-                name = loadString(donnor, "nom"),
-                marriedName = loadString(donnor, "nomMarital"),
-                firstName = loadString(donnor, "prenom"),
+                name = loadString(donner, "nom"),
+                marriedName = loadString(donner, "nomMarital"),
+                firstName = loadString(donner, "prenom"),
 
-                birthDate = loadString(donnor, "dateNaissance"),
-                birthplace = loadString(donnor, "lieuNaissance"),
+                birthDate = loadString(donner, "dateNaissance"),
+                birthplace = loadString(donner, "lieuNaissance"),
 
-                address = loadString(donnor, "rue"),
-                homeType = loadString(donnor, "etage"),
-                building = loadString(donnor, "immeuble"),
-                placeOf = loadString(donnor, "bp"),
-                zipCode = loadString(donnor, "cp"),
-                city = loadString(donnor, "ville"),
+                address = loadString(donner, "rue"),
+                homeType = loadString(donner, "etage"),
+                building = loadString(donner, "immeuble"),
+                placeOf = loadString(donner, "bp"),
+                zipCode = loadString(donner, "cp"),
+                city = loadString(donner, "ville"),
 
-                weight = donnor.getDouble("poids"),
-                height = donnor.getInt("taille"),
+                weight = donner.getDouble("poids"),
+                height = donner.getInt("taille"),
 
-                personalNumber = loadString(donnor, "telFix"),
-                mobileNumber = loadString(donnor, "telMob"),
-                professionalNumber = loadString(donnor, "telPro"),
-                email = loadString(donnor, "email"),
+                personalNumber = loadString(donner, "telFix"),
+                mobileNumber = loadString(donner, "telMob"),
+                professionalNumber = loadString(donner, "telPro"),
+                email = loadString(donner, "email"),
 
-                bloodType = loadString(donnor, "groupeSanguinLabel"),
-                bloodTypeMessage = loadString(donnor, "groupeSanguinMessage"),
+                bloodType = loadString(donner, "groupeSanguinLabel"),
+                bloodTypeMessage = loadString(donner, "groupeSanguinMessage"),
 
                 nbBloodDonations = nbBloodDonations,
                 nbPlateletsDonations = nbPlateletsDonations,
                 nbPlasmaDonations = nbPlasmaDonations,
 
-                nextBloodDonationDate = dfsource.parse(loadString(donnor, "dateEligSang")),
-                nextPlateletsDonationDate = dfsource.parse(loadString(donnor, "dateEligPlaquette")),
-                nextPlasmaDonationDate = dfsource.parse(loadString(donnor, "dateEligPlasma")),
+                nextBloodDonationDate = dateFormat.parse(loadString(donner, "dateEligSang")),
+                nextPlateletsDonationDate = dateFormat.parse(loadString(donner, "dateEligPlaquette")),
+                nextPlasmaDonationDate = dateFormat.parse(loadString(donner, "dateEligPlasma")),
 
-                bloodDonationsHistory = if (nbBloodDonations > 0) parseArray(dfsource, donnor.getJSONArray("donsSang")) else emptyArray(),
+                bloodDonationsHistory = if (nbBloodDonations > 0) parseArray(dateFormat, donner.getJSONArray("donsSang")) else emptyArray(),
 
-                plateletsDonationsHistory = if (nbPlateletsDonations > 0) parseArray(dfsource, donnor.getJSONArray("donsPlaquette")) else emptyArray(),
+                plateletsDonationsHistory = if (nbPlateletsDonations > 0) parseArray(dateFormat, donner.getJSONArray("donsPlaquette")) else emptyArray(),
 
-                plasmaDonationsHistory = if (nbPlasmaDonations > 0) parseArray(dfsource, donnor.getJSONArray("donsPlasma")) else emptyArray()
+                plasmaDonationsHistory = if (nbPlasmaDonations > 0) parseArray(dateFormat, donner.getJSONArray("donsPlasma")) else emptyArray()
             )
         }
 

@@ -1,4 +1,4 @@
-package fr.socket.florian.dondusang.loader;
+package fr.socket.florian.dondesang.loader;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -59,8 +59,8 @@ public class HistoryManager {
     private static void sendNotification(Context context, String donationType) {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context, CONGRATS_CHANNEL)
-                        .setSmallIcon(R.drawable.ic_droplet_red)
-                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_droplet_red))
+                        .setSmallIcon(R.drawable.ic_droplet)
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_droplet))
                         .setContentTitle(context.getString(R.string.congrats_title))
                         .setContentText(context.getString(R.string.congrats_message) + " " + donationType)
                         .setColor(ContextCompat.getColor(context, R.color.colorPrimary));

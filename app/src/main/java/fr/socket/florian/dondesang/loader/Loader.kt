@@ -13,8 +13,12 @@ import java.io.IOException
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.loader.web.WebConnection
 import fr.socket.florian.dondesang.loader.web.WebConnectionException
+import fr.socket.florian.dondesang.model.Question
 import fr.socket.florian.dondesang.model.User
-import fr.socket.florian.dondesang.model.UserException
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.widget.ImageView
+
 
 class Loader {
     private val _connection: WebConnection = WebConnection()
@@ -94,6 +98,30 @@ class Loader {
         return false
     }
 
+    fun getQuestion(id: String, callback: (Question?) -> Unit) {
+        AsyncQuestion(id, this, callback).execute()
+    }
+
+    private fun getQuestion(id: String): Question {
+        val response = Jsoup.connect("https://dondesang.efs.sante.fr/test-aptitude-au-don")
+            .data("question", id)
+            .method(Connection.Method.GET)
+            .followRedirects(false)
+            .execute()
+        val questionElement = response.parse().getElementsByClass("Question")[0]
+        val errorElement = questionElement.child(3)
+        return Question(
+            questionElement.child(1).text(),
+            errorElement.child(1).text(),
+            questionElement.getElementsByTag("img")[0].attr("src"),
+            questionElement.getElementsByAttributeValue("name", "next_question_id")[0].attr("value")
+        )
+    }
+
+    fun downloadImage(relativeUrl: String, callback: (Bitmap?) -> Unit) {
+        DownloadImageTask("https://dondesang.efs.sante.fr$relativeUrl", callback).execute()
+    }
+
     fun loadUser(): User? {
         try {
             val document = _connection.get("https://donneurs.efs.sante.fr/Profil#/home").document
@@ -109,11 +137,9 @@ class Loader {
                 "https://donneurs.efs.sante.fr/api/services/webdonneur/donneurService/GetDonneurDetails",
                 params
             ).json
-            return User(json)
+            return User.parse(json)
         } catch (e: WebConnectionException) {
             Log.e("loadUser", "Cannot request the user details : " + e.message, e)
-        } catch (e: UserException) {
-            Log.e("loadUser", "Cannot create an user instance : " + e.message, e)
         }
         return null
     }
@@ -164,6 +190,36 @@ class Loader {
         override fun onPostExecute(success: Boolean) {
             super.onPostExecute(success)
             _callback(success)
+        }
+    }
+
+    private class AsyncQuestion(private val id: String, private val loader: Loader, private val callback: (Question?) -> Unit) : AsyncTask<Void, Void, Question?>() {
+        override fun doInBackground(vararg p0: Void?): Question? {
+            return loader.getQuestion(id)
+        }
+
+        override fun onPostExecute(result: Question?) {
+            super.onPostExecute(result)
+            callback(result)
+        }
+    }
+
+    private class DownloadImageTask(val url: String, val callback: (Bitmap?) -> Unit) : AsyncTask<Void, Void, Bitmap?>() {
+        override fun doInBackground(vararg p0: Void): Bitmap? {
+            var mIcon11: Bitmap? = null
+            try {
+                Log.d("DownloadImage", url)
+                val input = java.net.URL(url).openStream()
+                mIcon11 = BitmapFactory.decodeStream(input)
+            } catch (e: Exception) {
+                Log.e("DownloadImage", e.message, e)
+            }
+            return mIcon11
+        }
+
+        override fun onPostExecute(result: Bitmap?) {
+            callback(result)
+            Log.d("DownloadImage", "callback called " + (result == null))
         }
     }
 }

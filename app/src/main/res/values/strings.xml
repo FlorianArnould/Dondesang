@@ -52,7 +52,8 @@
     <string name="platelets_donation">Don de plaquettes</string>
 
     <string name="blood_donation_message">Les globules rouges représentent 44% du sang</string>
-    <string name="platelets_donation_message">Les plaquettes et les globules blancs représentent moins de 1% du sang</string>
+    <string name="platelets_donation_message">Les plaquettes et les globules blancs représentent moins de 1% du sang
+    </string>
     <string name="plasma_donation_message">Le plasma représente 55% du sang</string>
     <string name="username_icon">username icon</string>
     <string name="username">N° Donneur</string>
@@ -60,4 +61,16 @@
     <string name="password">Mot de passe</string>
     <string name="sign_in">Connexion</string>
     <string name="result_icon">Result icon</string>
+    <string name="isAuthenticated">is authenticated</string>
+    <string name="donneur">Donneur</string>
+    <string name="questions_pre_don">Questions prédon</string>
+    <string name="find_location">Où aller ?</string>
+    <string name="about">A propos</string>
+    <string name="information">Infos</string>
+    <string name="quiz_disclaimer">Les réponses recueillies sont à valeur indicative et non médicale. Seul l\'entretien
+        le jour du don en présence du personnel médical déterminera votre capacité à donner votre sang.
+    </string>
+    <string name="quiz_success_message">D\'après les informations indiquées, vous pouvez donner votre sang. Un membre du
+        personnel médical sera en mesure de confirmer votre aptitude lors de l\'entretien pré-don le jour du don.
+    </string>
 </resources>
