@@ -7,9 +7,7 @@ import android.support.annotation.StringRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.Switch
-
 import fr.socket.florian.dondesang.R
 
 class NotificationsFragment : TitledFragment() {
@@ -22,11 +20,28 @@ class NotificationsFragment : TitledFragment() {
         val view = inflater.inflate(R.layout.fragment_notifications, container, false)
         val context = context
         if (context != null) {
-            val preferences = context.getSharedPreferences(getString(R.string.notification_preferences), Context.MODE_PRIVATE)
-            setPreference(view.findViewById(R.id.next_blood_donation), R.string.next_blood_donation_notification, preferences)
-            setPreference(view.findViewById(R.id.next_platelet_donation), R.string.next_platelet_donation_notification, preferences)
-            setPreference(view.findViewById(R.id.next_plasma_donation), R.string.next_plasma_donation_notification, preferences)
-            setPreference(view.findViewById(R.id.after_donation_congrats), R.string.after_donation_congrats_notification, preferences)
+            val preferences =
+                context.getSharedPreferences(getString(R.string.notification_preferences), Context.MODE_PRIVATE)
+            setPreference(
+                view.findViewById(R.id.next_blood_donation),
+                R.string.next_blood_donation_notification,
+                preferences
+            )
+            setPreference(
+                view.findViewById(R.id.next_platelet_donation),
+                R.string.next_platelet_donation_notification,
+                preferences
+            )
+            setPreference(
+                view.findViewById(R.id.next_plasma_donation),
+                R.string.next_plasma_donation_notification,
+                preferences
+            )
+            setPreference(
+                view.findViewById(R.id.after_donation_congrats),
+                R.string.after_donation_congrats_notification,
+                preferences
+            )
         }
         return view
     }

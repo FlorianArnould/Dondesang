@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:card_view="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/card_view"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center"
+	android:layout_marginStart="12dp"
+	android:layout_marginTop="6dp"
+	android:layout_marginEnd="12dp"
+	android:layout_marginBottom="6dp"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:focusable="true"
+	android:clickable="true"
+	card_view:cardCornerRadius="4dp">
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_margin="10dp">
+
+		<ImageView
+			android:id="@+id/icon"
+			android:layout_width="35dp"
+			android:layout_height="35dp"
+			android:src="@drawable/ic_business" />
+
+		<TextView
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="10dp"
+			android:text="Paris 13ème"
+			android:textAppearance="@android:style/TextAppearance.Material.Title"
+			app:layout_constraintBottom_toBottomOf="@id/icon"
+			app:layout_constraintLeft_toRightOf="@id/icon"
+			app:layout_constraintTop_toTopOf="@id/icon" />
+
+		<TextView
+			android:id="@+id/address"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:text="Hôpital Pitié-Salpétrière 12 rue Bruant ou 50 bd V Auriol - Pavillon Laveran 75013 Paris 13ème"
+			android:textAppearance="@android:style/TextAppearance.Material.Body1"
+			app:layout_constraintTop_toBottomOf="@id/icon" />
+
+		<ImageButton
+			android:id="@+id/phone_button"
+			android:layout_width="35dp"
+			android:layout_height="35dp"
+			android:background="?android:attr/selectableItemBackgroundBorderless"
+			android:src="@drawable/ic_phone"
+			app:layout_constraintRight_toRightOf="parent" />
+
+		<TextView
+			android:id="@+id/info"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:text="Dons possibles :"
+			android:textAppearance="@android:style/TextAppearance.Material.Caption"
+			app:layout_constraintTop_toBottomOf="@id/address" />
+
+		<TextView
+			android:id="@+id/distance"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:text="120km"
+			android:textAppearance="@android:style/TextAppearance.Material.Caption"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/info" />
+
+		<LinearLayout
+			android:id="@+id/firsts"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_marginTop="5dp"
+			app:layout_constraintTop_toBottomOf="@id/info">
+
+			<android.support.constraint.ConstraintLayout
+				android:id="@+id/blood_layout"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:id="@+id/blood_droplet_icon"
+					android:layout_width="20dp"
+					android:layout_height="20dp"
+					android:src="@drawable/ic_droplet"
+					android:tint="@color/blood"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="@android:style/TextAppearance.Material.Caption"
+					android:text="@string/blood"
+					app:layout_constraintTop_toTopOf="@id/blood_droplet_icon"
+					app:layout_constraintBottom_toBottomOf="@id/blood_droplet_icon"
+					app:layout_constraintLeft_toRightOf="@id/blood_droplet_icon"/>
+
+			</android.support.constraint.ConstraintLayout>
+
+			<android.support.constraint.ConstraintLayout
+				android:id="@+id/plasma_layout"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="10dp">
+
+				<ImageView
+					android:id="@+id/plasma_droplet_icon"
+					android:layout_width="20dp"
+					android:layout_height="20dp"
+					android:src="@drawable/ic_droplet"
+					android:tint="@color/plasma"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textAppearance="@android:style/TextAppearance.Material.Caption"
+					android:text="@string/plasma"
+					app:layout_constraintTop_toTopOf="@id/plasma_droplet_icon"
+					app:layout_constraintBottom_toBottomOf="@id/plasma_droplet_icon"
+					app:layout_constraintLeft_toRightOf="@id/plasma_droplet_icon"/>
+
+			</android.support.constraint.ConstraintLayout>
+
+		</LinearLayout>
+
+		<android.support.constraint.ConstraintLayout
+			android:id="@+id/platelets_layout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginStart="10dp"
+			app:layout_constraintTop_toBottomOf="@id/info"
+			app:layout_constraintLeft_toRightOf="@id/firsts">
+
+			<ImageView
+				android:id="@+id/platelets_droplet_icon"
+				android:layout_width="20dp"
+				android:layout_height="20dp"
+				android:src="@drawable/ic_droplet"
+				android:tint="@color/platelets"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="@android:style/TextAppearance.Material.Caption"
+				android:text="@string/platelets"
+				app:layout_constraintTop_toTopOf="@id/platelets_droplet_icon"
+				app:layout_constraintBottom_toBottomOf="@id/platelets_droplet_icon"
+				app:layout_constraintLeft_toRightOf="@id/platelets_droplet_icon"/>
+
+		</android.support.constraint.ConstraintLayout>
+
+	</android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

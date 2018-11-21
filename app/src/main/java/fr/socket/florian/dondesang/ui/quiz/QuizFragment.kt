@@ -25,13 +25,13 @@ class QuizFragment : TitledFragment() {
         val view = inflater.inflate(R.layout.fragment_quiz, container, false)
         loadNextQuestion(view)
         view.findViewById<Button>(R.id.yesButton).setOnClickListener {
-            onQuizFinished(view, QuestionResult(false,  currentQuestion?.message ?: ""))
+            onQuizFinished(view, QuestionResult(false, currentQuestion?.message ?: ""))
         }
         view.findViewById<Button>(R.id.noButton).setOnClickListener {
             loadNextQuestion(view)
         }
         view.findViewById<Button>(R.id.restart_button).setOnClickListener {
-            currentQuestion = Question("", "",  "", "")
+            currentQuestion = Question("", "", "", "")
             isFinished = false
             loadNextQuestion(view)
         }
@@ -39,13 +39,13 @@ class QuizFragment : TitledFragment() {
     }
 
     private fun loadNextQuestion(view: View) {
-        if(isFinished){
+        if (isFinished) {
             onQuizFinished(view, QuestionResult(true, getString(R.string.quiz_success_message)))
             return
         }
         hideView(view.findViewById<View>(R.id.restart_button_layout))
         loader.getQuestion(currentQuestion?.next ?: "") { question ->
-            if(question != null) {
+            if (question != null) {
                 revealView(view.findViewById<View>(R.id.buttons_layout))
                 view.findViewById<View>(R.id.progress_bar).visibility = View.INVISIBLE
                 inflate(QuestionFragment.newInstance(question))
@@ -56,14 +56,14 @@ class QuizFragment : TitledFragment() {
     }
 
     private fun hideView(view: View) {
-        if(view.visibility == View.VISIBLE) {
+        if (view.visibility == View.VISIBLE) {
             view.animate().alpha(0f).duration = 500
             Handler().postDelayed({ view.visibility = View.GONE }, 500)
         }
     }
 
     private fun revealView(view: View) {
-        if(view.visibility != View.VISIBLE) {
+        if (view.visibility != View.VISIBLE) {
             view.alpha = 0f
             view.visibility = View.VISIBLE
             view.animate().alpha(1f).duration = 500

@@ -16,7 +16,7 @@ class QuestionFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_image_and_text, container, false)
         val question = arguments?.getParcelable<Question>(QUESTION_ARG)
-        if(question != null) {
+        if (question != null) {
             val imageView = view.findViewById<ImageView>(R.id.image)
             var imageLoaded = false
             Handler().postDelayed({ if (!imageLoaded) imageView.setImageResource(R.drawable.image_placeholder) }, 500)

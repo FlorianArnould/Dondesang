@@ -2,11 +2,10 @@ package fr.socket.florian.dondesang.ui.activities
 
 import android.content.Context
 import android.graphics.drawable.TransitionDrawable
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.loader.Loader
 import kotlinx.android.synthetic.main.activity_login.*
@@ -33,7 +32,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun animateProgressToSuccess(runnable: Runnable) {
         buttonProgress.animate().alpha(0f).duration = 500
         Handler().postDelayed({
-            val transitionDrawable = TransitionDrawable(arrayOf(getDrawable(R.drawable.login_button_normal), getDrawable(R.drawable.login_button_success)))
+            val transitionDrawable = TransitionDrawable(
+                arrayOf(
+                    getDrawable(R.drawable.login_button_normal),
+                    getDrawable(R.drawable.login_button_success)
+                )
+            )
             button.background = transitionDrawable
             transitionDrawable.isCrossFadeEnabled = true
             transitionDrawable.startTransition(500)
@@ -46,7 +50,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun animateProgressToError() {
         buttonProgress.animate().alpha(0f).duration = 500
         Handler().postDelayed({
-            val transitionDrawable = TransitionDrawable(arrayOf(getDrawable(R.drawable.login_button_normal), getDrawable(R.drawable.login_button_error)))
+            val transitionDrawable = TransitionDrawable(
+                arrayOf(
+                    getDrawable(R.drawable.login_button_normal),
+                    getDrawable(R.drawable.login_button_error)
+                )
+            )
             button.background = transitionDrawable
             transitionDrawable.isCrossFadeEnabled = true
             transitionDrawable.startTransition(500)
@@ -84,14 +93,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             Loader().login(usernameString, passwordString) {
                 if (it) {
                     getSharedPreferences(getString(R.string.login_info), Context.MODE_PRIVATE)
-                            .edit()
-                            .putString(getString(R.string.username), usernameString)
-                            .putString(getString(R.string.password), passwordString)
-                            .putBoolean(getString(R.string.isAuthenticated), true)
-                            .apply()
+                        .edit()
+                        .putString(getString(R.string.username), usernameString)
+                        .putString(getString(R.string.password), passwordString)
+                        .putBoolean(getString(R.string.isAuthenticated), true)
+                        .apply()
                     onSuccess()
-                }
-                else onFailed()
+                } else onFailed()
             }
         })
     }

@@ -11,7 +11,7 @@ import fr.socket.florian.dondesang.model.User
 
 class PersonalInfoFragment : UserFragment() {
     override val title
-            get() = getString(R.string.mes_infos_personnelles)
+        get() = getString(R.string.mes_infos_personnelles)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

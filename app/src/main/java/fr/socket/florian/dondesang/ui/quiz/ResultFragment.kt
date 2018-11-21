@@ -15,9 +15,9 @@ class ResultFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_image_and_text, container, false)
         val result = arguments?.getParcelable<QuestionResult>(RESULT_ARG)
-        if(result != null) {
+        if (result != null) {
             val imageView = view.findViewById<ImageView>(R.id.image)
-            if (result.succeed){
+            if (result.succeed) {
                 imageView.setColorFilter(context?.getColor(R.color.green) ?: Color.GREEN)
                 imageView.setImageResource(R.drawable.ic_check)
             } else {

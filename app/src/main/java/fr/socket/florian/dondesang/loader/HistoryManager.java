@@ -10,18 +10,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-
 import fr.socket.florian.dondesang.R;
 import fr.socket.florian.dondesang.model.User;
 
 public class HistoryManager {
-    @VisibleForTesting static final String PREFERENCES_FILE_NAME = "history";
+    @VisibleForTesting
+    static final String PREFERENCES_FILE_NAME = "history";
+    @VisibleForTesting
+    static final String BLOOD_DONATIONS = "blood_donations";
+    @VisibleForTesting
+    static final String PLATELETS_DONATIONS = "platelets_donations";
+    @VisibleForTesting
+    static final String PLASMA_DONATIONS = "plasma_donations";
     private static final String IS_THERE_AN_HISTORY = "is_there_an_history";
-
-    @VisibleForTesting static final String BLOOD_DONATIONS = "blood_donations";
-    @VisibleForTesting static final String PLATELETS_DONATIONS = "platelets_donations";
-    @VisibleForTesting static final String PLASMA_DONATIONS = "plasma_donations";
-
     private static final String CONGRATS_CHANNEL = "congrats_channel";
 
     private HistoryManager() {

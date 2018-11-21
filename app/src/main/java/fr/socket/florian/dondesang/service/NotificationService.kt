@@ -5,12 +5,8 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
-
-import java.util.function.Consumer
-
 import fr.socket.florian.dondesang.loader.HistoryManager
 import fr.socket.florian.dondesang.loader.Loader
-import fr.socket.florian.dondesang.model.User
 
 class NotificationService : Service() {
     private var _binder: Binder? = null

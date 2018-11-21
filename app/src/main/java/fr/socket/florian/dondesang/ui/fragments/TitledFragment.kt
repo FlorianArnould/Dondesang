@@ -2,7 +2,6 @@ package fr.socket.florian.dondesang.ui.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 
 abstract class TitledFragment : Fragment() {

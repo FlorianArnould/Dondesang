@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-
-import java.util.Calendar
-import java.util.Date
-
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.model.User
+import java.util.*
 
 class DonationsFragment : UserFragment() {
     override val title
-            get() = getString(R.string.mes_dons)
+        get() = getString(R.string.mes_dons)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -57,7 +54,15 @@ class DonationsFragment : UserFragment() {
         return view
     }
 
-    private fun fillCard(view: View, titleRes: Int, messageRes: Int, colorRes: Int, number: Int, nextDonationDate: Date, lastDonationDate: Date) {
+    private fun fillCard(
+        view: View,
+        titleRes: Int,
+        messageRes: Int,
+        colorRes: Int,
+        number: Int,
+        nextDonationDate: Date,
+        lastDonationDate: Date
+    ) {
         val imageView = view.findViewById<ImageView>(R.id.image)
         imageView.setImageResource(R.drawable.ic_droplet)
         imageView.setColorFilter(context!!.getColor(colorRes))

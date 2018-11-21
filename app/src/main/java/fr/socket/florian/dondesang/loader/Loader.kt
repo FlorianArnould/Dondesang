@@ -1,23 +1,21 @@
 package fr.socket.florian.dondesang.loader
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.util.Log
-
-import org.json.JSONException
-import org.jsoup.Connection
-import org.jsoup.Jsoup
-
-import java.io.IOException
-
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.loader.web.WebConnection
 import fr.socket.florian.dondesang.loader.web.WebConnectionException
+import fr.socket.florian.dondesang.model.Location
 import fr.socket.florian.dondesang.model.Question
 import fr.socket.florian.dondesang.model.User
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.widget.ImageView
+import org.json.JSONException
+import org.jsoup.Connection
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
+import java.io.IOException
 
 
 class Loader {
@@ -32,8 +30,8 @@ class Loader {
             return
         }
         login(username, password) {
-                if (it) callback(this@Loader)
-                else callback(null)
+            if (it) callback(this@Loader)
+            else callback(null)
         }
     }
 
@@ -122,6 +120,10 @@ class Loader {
         DownloadImageTask("https://dondesang.efs.sante.fr$relativeUrl", callback).execute()
     }
 
+    fun getLocations(callback: (List<Location>?) -> Unit) {
+        AsyncLocations(callback).execute()
+    }
+
     fun loadUser(): User? {
         try {
             val document = _connection.get("https://donneurs.efs.sante.fr/Profil#/home").document
@@ -152,7 +154,8 @@ class Loader {
         AsyncLoadUser(this, callback).execute()
     }
 
-    private class AsyncIsUserAuthenticated(private val _loader: Loader, private val callback: (Boolean) -> Unit) : AsyncTask<Void, Void, Boolean>() {
+    private class AsyncIsUserAuthenticated(private val _loader: Loader, private val callback: (Boolean) -> Unit) :
+        AsyncTask<Void, Void, Boolean>() {
         override fun doInBackground(vararg voids: Void): Boolean {
             return _loader.isUserAuthenticated
         }
@@ -193,7 +196,11 @@ class Loader {
         }
     }
 
-    private class AsyncQuestion(private val id: String, private val loader: Loader, private val callback: (Question?) -> Unit) : AsyncTask<Void, Void, Question?>() {
+    private class AsyncQuestion(
+        private val id: String,
+        private val loader: Loader,
+        private val callback: (Question?) -> Unit
+    ) : AsyncTask<Void, Void, Question?>() {
         override fun doInBackground(vararg p0: Void?): Question? {
             return loader.getQuestion(id)
         }
@@ -204,7 +211,8 @@ class Loader {
         }
     }
 
-    private class DownloadImageTask(val url: String, val callback: (Bitmap?) -> Unit) : AsyncTask<Void, Void, Bitmap?>() {
+    private class DownloadImageTask(val url: String, val callback: (Bitmap?) -> Unit) :
+        AsyncTask<Void, Void, Bitmap?>() {
         override fun doInBackground(vararg p0: Void): Bitmap? {
             var mIcon11: Bitmap? = null
             try {
@@ -220,6 +228,43 @@ class Loader {
         override fun onPostExecute(result: Bitmap?) {
             callback(result)
             Log.d("DownloadImage", "callback called " + (result == null))
+        }
+    }
+
+    private class AsyncLocations(val callback: (List<Location>?) -> Unit) : AsyncTask<Void, Void, List<Location>?>() {
+        override fun doInBackground(vararg p0: Void?): List<Location>? {
+            val doc = Jsoup.connect("https://dondesang.efs.sante.fr/trouver-une-collecte")
+                .method(Connection.Method.GET)
+                .timeout(0)
+                .execute()
+                .parse()
+            val children = doc.getElementsByClass("collectes-list")[0].children()
+            return List(children.size) { parseLocation(children[it]) }
+        }
+
+        private fun parseLocation(element: Element): Location {
+            val latLong = element.getElementsByClass("mail")[0].child(0).attr("href").split("?")[1].split("&")
+            return Location(
+                name = element.getElementsByClass("title")[0].text(),
+                isFixed = element.getElementsByClass("picto")[0].attr("src").contains("fixe"),
+                address = element.getElementsByClass("address")[0].text(),
+                phone = try {
+                    element.getElementsByAttributeValue("itemprop", "telephone")[0].child(0).text()
+                } catch (e: java.lang.Exception) {
+                    null
+                },
+                canBlood = element.getElementsByClass("Sang").size == 1,
+                canPlasma = element.getElementsByClass("Plasma").size == 1,
+                canPlatelet = element.getElementsByClass("Plaquettes").size == 1,
+                info = element.getElementsByClass("infos-text")[0].child(0).html().replace("<br>", "").trim().replace("&amp;", "&"),
+                lat = latLong[0].split("=")[1].toFloat(),
+                long = latLong[1].split("=")[1].toFloat()
+            )
+        }
+
+        override fun onPostExecute(result: List<Location>?) {
+            super.onPostExecute(result)
+            callback(result)
         }
     }
 }

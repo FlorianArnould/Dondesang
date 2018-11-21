@@ -3,12 +3,9 @@ package fr.socket.florian.dondesang.model
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import org.json.JSONArray
-
 import org.json.JSONObject
-
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 @Parcelize
 data class User(
@@ -41,11 +38,11 @@ data class User(
     val bloodDonationsHistory: Array<Donation>,
     val plateletsDonationsHistory: Array<Donation>,
     val plasmaDonationsHistory: Array<Donation>
-    ) : Parcelable {
+) : Parcelable {
 
     fun lastDonationDate(): Date? {
         val array = bloodDonationsHistory + plateletsDonationsHistory + plasmaDonationsHistory
-        if(array.isEmpty()){
+        if (array.isEmpty()) {
             return null
         }
         var last = array[0].date
@@ -60,7 +57,8 @@ data class User(
     companion object {
         fun parse(json: JSONObject): User {
 
-            val donner = json.getJSONObject("result").getJSONObject("content").getJSONObject("value").getJSONObject("donneur")
+            val donner =
+                json.getJSONObject("result").getJSONObject("content").getJSONObject("value").getJSONObject("donneur")
 
             val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.FRANCE)
 
@@ -68,7 +66,7 @@ data class User(
             val nbPlateletsDonations = donner.getInt("nbDonPlaquette")
             val nbPlasmaDonations = donner.getInt("nbDonPlasma")
 
-            return User (
+            return User(
                 id = loadString(donner, "identifiantMDD"),
 
                 name = loadString(donner, "nom"),
@@ -104,17 +102,29 @@ data class User(
                 nextPlateletsDonationDate = dateFormat.parse(loadString(donner, "dateEligPlaquette")),
                 nextPlasmaDonationDate = dateFormat.parse(loadString(donner, "dateEligPlasma")),
 
-                bloodDonationsHistory = if (nbBloodDonations > 0) parseArray(dateFormat, donner.getJSONArray("donsSang")) else emptyArray(),
+                bloodDonationsHistory = if (nbBloodDonations > 0) parseArray(
+                    dateFormat,
+                    donner.getJSONArray("donsSang")
+                ) else emptyArray(),
 
-                plateletsDonationsHistory = if (nbPlateletsDonations > 0) parseArray(dateFormat, donner.getJSONArray("donsPlaquette")) else emptyArray(),
+                plateletsDonationsHistory = if (nbPlateletsDonations > 0) parseArray(
+                    dateFormat,
+                    donner.getJSONArray("donsPlaquette")
+                ) else emptyArray(),
 
-                plasmaDonationsHistory = if (nbPlasmaDonations > 0) parseArray(dateFormat, donner.getJSONArray("donsPlasma")) else emptyArray()
+                plasmaDonationsHistory = if (nbPlasmaDonations > 0) parseArray(
+                    dateFormat,
+                    donner.getJSONArray("donsPlasma")
+                ) else emptyArray()
             )
         }
 
         private fun parseArray(dateFormat: SimpleDateFormat, json: JSONArray): Array<Donation> {
             return Array(json.length()) {
-                Donation(json.getJSONObject(it).getString("villeDon"), dateFormat.parse(json.getJSONObject(it).getString("dateDon")))
+                Donation(
+                    json.getJSONObject(it).getString("villeDon"),
+                    dateFormat.parse(json.getJSONObject(it).getString("dateDon"))
+                )
             }
         }
 

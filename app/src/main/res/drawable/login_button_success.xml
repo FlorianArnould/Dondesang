@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/green" />
-    <corners
-        android:bottomLeftRadius="@dimen/login_input_radius"
-        android:bottomRightRadius="@dimen/login_input_radius"
-        android:topLeftRadius="@dimen/login_input_radius"
-        android:topRightRadius="@dimen/login_input_radius" />
+	<solid android:color="@color/green" />
+	<corners
+		android:bottomLeftRadius="@dimen/login_input_radius"
+		android:bottomRightRadius="@dimen/login_input_radius"
+		android:topLeftRadius="@dimen/login_input_radius"
+		android:topRightRadius="@dimen/login_input_radius" />
 </shape>

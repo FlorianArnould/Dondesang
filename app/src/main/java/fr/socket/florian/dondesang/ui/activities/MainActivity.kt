@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 
@@ -19,6 +18,7 @@ import fr.socket.florian.dondesang.loader.Loader
 import fr.socket.florian.dondesang.model.User
 import fr.socket.florian.dondesang.service.Utils
 import fr.socket.florian.dondesang.ui.fragments.*
+import fr.socket.florian.dondesang.ui.location.LocationFragment
 import fr.socket.florian.dondesang.ui.quiz.QuizFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -39,12 +39,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        nav_view.menu.getItem(0).isChecked = true
+        nav_view.setCheckedItem(R.id.nav_dons)
 
         inflateFragment(LoadingFragment())
 
         user = intent?.extras?.getParcelable(USER_ARG)
-        if(user == null) {
+        if (user == null) {
             loader.initialize(this) { loader ->
                 if (loader == null) {
                     Toast.makeText(
@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_questions -> inflateFragment(QuizFragment.newInstance())
+            R.id.nav_find -> inflateFragment(LocationFragment.newInstance())
             R.id.nav_dons -> inflateFragment(DonationsFragment.newInstance(user!!))
             R.id.nav_dossier -> inflateFragment(PersonalInfoFragment.newInstance(user!!))
             R.id.nav_notifications -> inflateFragment(NotificationsFragment.newInstance())

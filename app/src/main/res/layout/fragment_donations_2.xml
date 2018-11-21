@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
 
-        <include
-            android:id="@+id/blood_card"
-            layout="@layout/card_donation"/>
+		<include
+			android:id="@+id/blood_card"
+			layout="@layout/card_donation" />
 
-        <include
-            android:id="@+id/plasma_card"
-            layout="@layout/card_donation"/>
+		<include
+			android:id="@+id/plasma_card"
+			layout="@layout/card_donation" />
 
-        <include
-            android:id="@+id/platelets_card"
-            layout="@layout/card_donation"/>
+		<include
+			android:id="@+id/platelets_card"
+			layout="@layout/card_donation" />
 
 
-    </LinearLayout>
+	</LinearLayout>
 
 </ScrollView>

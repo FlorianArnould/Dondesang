@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9A0412</color>
-    <color name="colorPrimaryDark">#9A0412</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="whiteGrey">#FF9e9e9e</color>
-    <color name="transparentGrey">#22ffffff</color>
-    <color name="purple">#4527a0</color>
-    <color name="purpleDark">#000070</color>7
-    <color name="red">#7f0000</color>
-    <color name="green">#689f38</color>
+	<color name="colorPrimary">#9A0412</color>
+	<color name="colorPrimaryDark">#9A0412</color>
+	<color name="colorAccent">#FF4081</color>
+	<color name="whiteGrey">#FF9e9e9e</color>
+	<color name="transparentGrey">#22ffffff</color>
+	<color name="purple">#4527a0</color>
+	<color name="purpleDark">#000070</color>7
+	<color name="red">#7f0000</color>
+	<color name="green">#689f38</color>
 
-    <color name="blood">#C50517</color>
-    <color name="plasma">#FF8A00</color>
-    <color name="platelets">#FFDA00</color>
+	<color name="blood">#C50517</color>
+	<color name="plasma">#FF8A00</color>
+	<color name="platelets">#FFDA00</color>
 </resources>

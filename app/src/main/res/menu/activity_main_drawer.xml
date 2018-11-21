@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:showIn="navigation_view">
+	<group android:checkableBehavior="single">
+		<item
+			android:id="@+id/nav_questions"
+			android:icon="@drawable/ic_question_answer"
+			android:title="@string/questions_pre_don" />
+		<item
+			android:id="@+id/nav_find"
+			android:icon="@drawable/ic_location"
+			android:title="@string/find_location" />
+	</group>
+	<item
+		android:id="@+id/donner_part"
+		android:title="@string/donneur">
+		<menu>
+			<group android:checkableBehavior="single">
+				<item
+					android:id="@+id/nav_dons"
+					android:icon="@drawable/ic_droplet"
+					android:title="@string/mes_dons" />
+				<item
+					android:id="@+id/nav_dossier"
+					android:icon="@drawable/ic_person"
+					android:title="@string/mes_infos_personnelles" />
+				<item
+					android:id="@+id/nav_notifications"
+					android:icon="@drawable/ic_notifications"
+					android:title="@string/notifications" />
+			</group>
+		</menu>
+	</item>
 
-    <group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/nav_questions"
-            android:icon="@drawable/ic_question_answer"
-            android:title="@string/questions_pre_don" />
-
-        <item
-            android:id="@+id/nav_find"
-            android:icon="@drawable/ic_location"
-            android:title="@string/find_location" />
-
-        <item
-                android:id="@+id/donner_part"
-                android:title="@string/donneur">
-            <menu>
-                <item
-                        android:id="@+id/nav_dons"
-                        android:icon="@drawable/ic_droplet"
-                        android:title="@string/mes_dons" />
-                <item
-                        android:id="@+id/nav_dossier"
-                        android:icon="@drawable/ic_person"
-                        android:title="@string/mes_infos_personnelles" />
-                <item
-                        android:id="@+id/nav_notifications"
-                        android:icon="@drawable/ic_notifications"
-                        android:title="@string/notifications" />
-            </menu>
-        </item>
-
-        <item android:title="@string/information">
-            <menu>
-                <item
-                        android:id="@+id/nav_about"
-                        android:icon="@drawable/ic_info"
-                        android:title="@string/about" />
-            </menu>
-        </item>
-    </group>
+	<item android:title="@string/information">
+		<menu>
+			<group android:checkableBehavior="single">
+				<item
+					android:id="@+id/nav_about"
+					android:icon="@drawable/ic_info"
+					android:title="@string/about" />
+			</group>
+		</menu>
+	</item>
 
 </menu>
