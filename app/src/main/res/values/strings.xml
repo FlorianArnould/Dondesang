@@ -73,4 +73,10 @@
 	<string name="quiz_success_message">D\'après les informations indiquées, vous pouvez donner votre sang. Un membre du
         personnel médical sera en mesure de confirmer votre aptitude lors de l\'entretien pré-don le jour du don.
     </string>
+	<string name="save">Enregistrer</string>
+	<string name="about_message">Cette application n\'est pas affilié à l\'EFS et ne stocke aucune information vous concernant. La gestion de ces informations personnelles est déléguée aux sites de l\'EFS ci-dessous.</string>
+	<string name="repository">Repo</string>
+	<string name="icons">Icônes</string>
+	<string name="websites">Sites web</string>
+	<string name="icon">Icon</string>
 </resources>

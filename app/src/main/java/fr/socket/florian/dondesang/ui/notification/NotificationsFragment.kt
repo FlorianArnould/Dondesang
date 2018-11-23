@@ -1,14 +1,15 @@
-package fr.socket.florian.dondesang.ui.fragments
+package fr.socket.florian.dondesang.ui.notification
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
+import androidx.annotation.StringRes
 import fr.socket.florian.dondesang.R
+import fr.socket.florian.dondesang.ui.abstracts.TitledFragment
 
 class NotificationsFragment : TitledFragment() {
 

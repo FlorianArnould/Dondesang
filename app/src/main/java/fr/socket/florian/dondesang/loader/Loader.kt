@@ -19,7 +19,7 @@ import java.io.IOException
 
 
 class Loader {
-    private val _connection: WebConnection = WebConnection()
+    private val connection: WebConnection = WebConnection()
 
     fun initialize(context: Context, callback: (Loader?) -> Unit) {
         val preferences = context.getSharedPreferences(context.getString(R.string.login_info), Context.MODE_PRIVATE)
@@ -34,22 +34,6 @@ class Loader {
             else callback(null)
         }
     }
-
-    val isUserAuthenticated: Boolean
-        get() {
-            try {
-                val json = _connection.post(
-                    "https://donneurs.efs.sante.fr/api/services/webdonneur/donneurService/IsUserAuthenticated",
-                    "JSON"
-                ).json
-                return json.getBoolean("result")
-            } catch (e: WebConnectionException) {
-                Log.e("isUserAuthenticated", "Cannot request if the user is authenticated : " + e.message, e)
-            } catch (e: JSONException) {
-                Log.e("isUserAuthenticated", "Cannot parse the answer : " + e.message, e)
-            }
-            return false
-        }
 
     fun login(username: String, password: String, callback: (Boolean) -> Unit) {
         AsyncLogin(username, password, this, callback).execute()
@@ -85,9 +69,9 @@ class Loader {
                 val ADAuthCookie =
                     cookies[4].split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0].split("=".toRegex())
                         .dropLastWhile { it.isEmpty() }.toTypedArray()
-                _connection.setCookie(cookie[0], cookie[1])
-                _connection.setCookie(ASPNET[0], ASPNET[1])
-                _connection.setCookie(ADAuthCookie[0], ADAuthCookie[1])
+                connection.setCookie(cookie[0], cookie[1])
+                connection.setCookie(ASPNET[0], ASPNET[1])
+                connection.setCookie(ADAuthCookie[0], ADAuthCookie[1])
                 return true
             }
         } catch (e: IOException) {
@@ -126,7 +110,7 @@ class Loader {
 
     fun loadUser(): User? {
         try {
-            val document = _connection.get("https://donneurs.efs.sante.fr/Profil#/home").document
+            val document = connection.get("https://donneurs.efs.sante.fr/Profil#/home").document
             val tokenElement = document.getElementById("profilUserId")
             val userIdElement = document.getElementById("profilUserCode")
             if (tokenElement == null || userIdElement == null) {
@@ -135,7 +119,7 @@ class Loader {
             val userId = userIdElement.attr("value")
             val token = tokenElement.attr("value")
             val params = "{userId: \"$userId\", token: \"$token\"}"
-            val json = _connection.post(
+            val json = connection.post(
                 "https://donneurs.efs.sante.fr/api/services/webdonneur/donneurService/GetDonneurDetails",
                 params
             ).json
@@ -146,35 +130,20 @@ class Loader {
         return null
     }
 
-    fun asyncIsUserAuthenticated(callback: (Boolean) -> Unit) {
-        AsyncIsUserAuthenticated(this, callback).execute()
-    }
-
     fun asyncLoadUser(callback: (User?) -> Unit) {
         AsyncLoadUser(this, callback).execute()
-    }
-
-    private class AsyncIsUserAuthenticated(private val _loader: Loader, private val callback: (Boolean) -> Unit) :
-        AsyncTask<Void, Void, Boolean>() {
-        override fun doInBackground(vararg voids: Void): Boolean {
-            return _loader.isUserAuthenticated
-        }
-
-        override fun onPostExecute(result: Boolean) {
-            callback(result)
-        }
     }
 
     private class AsyncLoadUser internal constructor(
         private val _loader: Loader,
         private val callback: (User?) -> Unit
-    ) : AsyncTask<Void, Void, User>() {
+    ) : AsyncTask<Void, Void, User?>() {
 
         override fun doInBackground(vararg voids: Void): User? {
             return _loader.loadUser()
         }
 
-        override fun onPostExecute(user: User) {
+        override fun onPostExecute(user: User?) {
             callback(user)
         }
     }

@@ -61,6 +61,7 @@ data class User(
                 json.getJSONObject("result").getJSONObject("content").getJSONObject("value").getJSONObject("donneur")
 
             val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.FRANCE)
+            val displayFormat = SimpleDateFormat("dd MMM yyyy", Locale.FRANCE)
 
             val nbBloodDonations = donner.getInt("nbDonSang")
             val nbPlateletsDonations = donner.getInt("nbDonPlaquette")
@@ -73,7 +74,7 @@ data class User(
                 marriedName = loadString(donner, "nomMarital"),
                 firstName = loadString(donner, "prenom"),
 
-                birthDate = loadString(donner, "dateNaissance"),
+                birthDate = displayFormat.format(dateFormat.parse(loadString(donner, "dateNaissance"))),
                 birthplace = loadString(donner, "lieuNaissance"),
 
                 address = loadString(donner, "rue"),

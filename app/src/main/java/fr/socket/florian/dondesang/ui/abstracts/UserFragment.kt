@@ -1,4 +1,4 @@
-package fr.socket.florian.dondesang.ui.fragments
+package fr.socket.florian.dondesang.ui.abstracts
 
 import android.os.Bundle
 import fr.socket.florian.dondesang.model.User

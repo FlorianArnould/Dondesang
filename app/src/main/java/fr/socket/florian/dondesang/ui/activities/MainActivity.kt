@@ -2,23 +2,29 @@ package fr.socket.florian.dondesang.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
+
 import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.loader.HistoryManager
 import fr.socket.florian.dondesang.loader.Loader
 import fr.socket.florian.dondesang.model.User
 import fr.socket.florian.dondesang.service.Utils
-import fr.socket.florian.dondesang.ui.fragments.*
+import fr.socket.florian.dondesang.ui.about.AboutFragment
+import fr.socket.florian.dondesang.ui.donation.DonationsFragment
+import fr.socket.florian.dondesang.ui.donation.LoadingFragment
+import fr.socket.florian.dondesang.ui.abstracts.*
+import fr.socket.florian.dondesang.ui.information.PersonalInfoFragment
 import fr.socket.florian.dondesang.ui.location.LocationFragment
+import fr.socket.florian.dondesang.ui.notification.NotificationsFragment
 import fr.socket.florian.dondesang.ui.quiz.QuizFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -101,6 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_dons -> inflateFragment(DonationsFragment.newInstance(user!!))
             R.id.nav_dossier -> inflateFragment(PersonalInfoFragment.newInstance(user!!))
             R.id.nav_notifications -> inflateFragment(NotificationsFragment.newInstance())
+            R.id.nav_about -> inflateFragment(AboutFragment.newInstance())
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
@@ -111,10 +118,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             HistoryManager.saveAndCheck(this, user)
             this.user = user
             inflateFragment(DonationsFragment.newInstance(user))
-            Log.d("userJSON", user.firstName)
-            Log.d("userJSON", user.name)
             nav_view.getHeaderView(0).findViewById<TextView>(R.id.blood_type).text = user.bloodType
-            val nameString = """${user.firstName} ${user.name}"""
+            val nameString = "${user.firstName} ${user.name}"
             nav_view.getHeaderView(0).findViewById<TextView>(R.id.name).text = nameString
             nav_view.getHeaderView(0).findViewById<TextView>(R.id.blood_type_message).text = user.bloodTypeMessage
         } else {

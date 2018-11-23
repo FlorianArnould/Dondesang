@@ -1,16 +1,13 @@
 package fr.socket.florian.dondesang.loader.web;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +40,6 @@ public class WebConnection {
             builder.append("; ");
         }
         conn.setRequestProperty("Cookie", builder.toString());
-        Log.d("cookies", builder.toString());
     }
 
     public void setCookie(String name, String value) {
@@ -54,7 +50,6 @@ public class WebConnection {
         List<String> cookies = conn.getHeaderFields().get("Set-Cookie");
         if (cookies != null) {
             for (String cookie : cookies) {
-                Log.d("cookie", cookie);
                 String[] baseCookie = cookie.split(";")[0].split("=");
                 if (baseCookie.length > 1) {
                     _cookies.put(baseCookie[0], baseCookie[1]);
@@ -69,8 +64,9 @@ public class WebConnection {
             conn.setRequestMethod("GET");
             setHeaders(conn);
             setCookies(conn);
-            conn.connect();
-            Log.d("GET", String.valueOf(conn.getResponseCode()));
+            conn.setDoInput(true);
+            conn.setDoOutput(false);
+            Log.i("GET", String.valueOf(conn.getResponseCode()) + " : " + url);
             interpretSetCookie(conn);
             StringBuilder result = new StringBuilder();
             try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
@@ -79,6 +75,8 @@ public class WebConnection {
                     result.append(line);
                 }
             } finally {
+                InputStream error = conn.getErrorStream();
+                if(error != null) error.close();
                 conn.disconnect();
             }
             return new WebGetResult(Jsoup.parse(result.toString()), conn.getDate());
@@ -100,7 +98,7 @@ public class WebConnection {
                 out.flush();
             }
             conn.connect();
-            Log.d("POST", String.valueOf(conn.getResponseCode()));
+            Log.i("POST", String.valueOf(conn.getResponseCode()) + " : " + url);
             interpretSetCookie(conn);
             StringBuilder result = new StringBuilder();
             try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
@@ -109,6 +107,8 @@ public class WebConnection {
                     result.append(line);
                 }
             } finally {
+                InputStream error = conn.getErrorStream();
+                if(error != null) error.close();
                 conn.disconnect();
             }
             return new WebPostResult(new JSONObject(result.toString()), conn.getDate());

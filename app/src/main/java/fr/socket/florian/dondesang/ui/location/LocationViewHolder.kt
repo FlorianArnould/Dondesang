@@ -2,11 +2,11 @@ package fr.socket.florian.dondesang.ui.location
 
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.model.Location
 import kotlin.math.roundToInt

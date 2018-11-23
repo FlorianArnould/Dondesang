@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.loader.Loader
 import kotlinx.android.synthetic.main.activity_login.*

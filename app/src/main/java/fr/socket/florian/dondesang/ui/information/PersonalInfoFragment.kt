@@ -1,4 +1,4 @@
-package fr.socket.florian.dondesang.ui.fragments
+package fr.socket.florian.dondesang.ui.information
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.EditText
 
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.model.User
+import fr.socket.florian.dondesang.ui.abstracts.UserFragment
 
 class PersonalInfoFragment : UserFragment() {
     override val title

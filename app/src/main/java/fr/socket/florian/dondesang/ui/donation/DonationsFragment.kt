@@ -1,7 +1,6 @@
-package fr.socket.florian.dondesang.ui.fragments
+package fr.socket.florian.dondesang.ui.donation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.model.User
+import fr.socket.florian.dondesang.ui.abstracts.UserFragment
 import java.util.*
 
 class DonationsFragment : UserFragment() {
@@ -80,8 +80,7 @@ class DonationsFragment : UserFragment() {
         val day = 24 * 60 * 60 * 1000
         val progress = ((Calendar.getInstance().time.time - lastDonationDate.time) / day).toInt()
         val max = ((nextDonationDate.time - lastDonationDate.time) / day).toInt()
-        Log.d("progressDonation", "Progress : $progress")
-        Log.d("progressDonation", "Max : $max")
+
         progressBar.progress = progress
         progressBar.max = max
 

@@ -2,12 +2,12 @@ package fr.socket.florian.dondesang.ui.quiz
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.model.QuestionResult
 
