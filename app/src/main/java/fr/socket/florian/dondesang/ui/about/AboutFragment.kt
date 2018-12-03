@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.socket.florian.dondesang.R
 import fr.socket.florian.dondesang.ui.abstracts.TitledFragment
-import kotlinx.android.synthetic.main.fragment_about.*
+import kotlinx.android.synthetic.main.recycler_view.*
 
 class AboutFragment : TitledFragment() {
     override val title: String
         get() = getString(R.string.about)
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_about, parent, false)
+        return inflater.inflate(R.layout.recycler_view, parent, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

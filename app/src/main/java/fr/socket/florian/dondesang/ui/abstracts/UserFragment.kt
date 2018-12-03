@@ -5,7 +5,12 @@ import fr.socket.florian.dondesang.model.User
 
 abstract class UserFragment : TitledFragment() {
 
-    protected val user: User? by lazy { arguments?.getParcelable<User>(USER_ARG) }
+    protected var user: User? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        user = arguments?.getParcelable(USER_ARG)
+    }
 
     companion object {
         private const val USER_ARG = "user_arg"

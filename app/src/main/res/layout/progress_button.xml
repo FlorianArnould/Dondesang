@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+
+	<Button
+		android:id="@+id/button"
+		style="?android:attr/borderlessButtonStyle"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginStart="20dp"
+		android:layout_marginEnd="20dp"
+		android:background="@drawable/login_button" />
+
+	<TextView
+		android:id="@+id/buttonText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:elevation="5dp"
+		android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+		android:textColor="@drawable/login_button_text_color" />
+
+	<ProgressBar
+		android:id="@+id/buttonProgress"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:alpha="0"
+		android:elevation="5dp"
+		android:indeterminateTint="@android:color/white" />
+
+	<ImageView
+		android:id="@+id/resultButtonIcon"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_centerInParent="true"
+		android:alpha="0"
+		android:contentDescription="@string/result_icon"
+		android:elevation="5dp"
+		android:tint="@android:color/white" />
+
+</RelativeLayout>

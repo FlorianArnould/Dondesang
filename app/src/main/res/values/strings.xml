@@ -13,8 +13,6 @@
 	<string name="mes_infos_personnelles">Mes infos personnelles</string>
 	<string name="notifications">Notifications</string>
 
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="donation_id">ID Donneur *</string>
 	<string name="current_name">Nom d\'usage</string>
 	<string name="birth_name">Nom de naissance *</string>
@@ -79,4 +77,9 @@
 	<string name="icons">Icônes</string>
 	<string name="websites">Sites web</string>
 	<string name="icon">Icon</string>
+	<string name="checkbox_personal_info">En cochant cette case, j’accepte que mes coordonnées soient transmises aux associations pour le don de sang bénévole (ADSB) partenaires de l’EFS</string>
+	<string name="next_blood_donation_description">Recevoir une notification quand vous pourrez à nouveau donner votre sang</string>
+	<string name="next_plasma_donation_description">Recevoir une notification quand vous pourrez à nouveau donner votre plasma</string>
+	<string name="platelets_donation_description">Recevoir une notification quand vous pourrez à nouveau donner vos plaquettes</string>
+	<string name="after_donation_congrats_description">Recevoir une notification vous félicitant lorsque votre dernier don aura été enretgistré par l\'EFS</string>
 </resources>

@@ -29,7 +29,7 @@ class LocationViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         icon.setImageResource(if (location.isFixed) R.drawable.ic_business else R.drawable.ic_bus)
         address.text = location.address
         information.text = location.info
-        if(location.distance != null) {
+        if (location.distance != null) {
             val distanceString = "${location.distance?.roundToInt()} km"
             distance.text = distanceString
         } else {

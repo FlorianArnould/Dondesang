@@ -18,7 +18,7 @@ import fr.socket.florian.dondesang.loader.Loader
 import fr.socket.florian.dondesang.model.setDistance
 import fr.socket.florian.dondesang.model.sortByDistance
 import fr.socket.florian.dondesang.ui.abstracts.TitledFragment
-import kotlinx.android.synthetic.main.recycler_view.*
+import kotlinx.android.synthetic.main.recycler_view_with_progress.*
 
 
 class LocationFragment : TitledFragment(), LocationListener {
@@ -29,7 +29,7 @@ class LocationFragment : TitledFragment(), LocationListener {
         get() = getString(R.string.find_location)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.recycler_view, container, false)
+        return inflater.inflate(R.layout.recycler_view_with_progress, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

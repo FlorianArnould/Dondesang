@@ -14,6 +14,13 @@ internal class WebsiteViewHolder(val view: View) : RecyclerView.ViewHolder(view)
     fun update(website: Website) {
         title.text = website.title
         description.text = website.description
-        view.setOnClickListener { view -> view.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(website.url))) }
+        view.setOnClickListener { view ->
+            view.context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(website.url)
+                )
+            )
+        }
     }
 }

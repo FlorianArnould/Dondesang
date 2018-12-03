@@ -11,17 +11,15 @@ import fr.socket.florian.dondesang.loader.web.WebConnectionException
 import fr.socket.florian.dondesang.model.Location
 import fr.socket.florian.dondesang.model.Question
 import fr.socket.florian.dondesang.model.User
-import org.json.JSONException
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import java.io.IOException
 
-
-class Loader {
+open class Loader {
     private val connection: WebConnection = WebConnection()
 
-    fun initialize(context: Context, callback: (Loader?) -> Unit) {
+    fun initialize(context: Context, callback: (AuthenticatedLoader?) -> Unit) {
         val preferences = context.getSharedPreferences(context.getString(R.string.login_info), Context.MODE_PRIVATE)
         val username = preferences.getString(context.getString(R.string.username), null)
         val password = preferences.getString(context.getString(R.string.password), null)
@@ -30,9 +28,19 @@ class Loader {
             return
         }
         login(username, password) {
-            if (it) callback(this@Loader)
+            if (it) callback(AuthenticatedLoader(connection))
             else callback(null)
         }
+    }
+
+    fun initialize(context: Context): AuthenticatedLoader? {
+        val preferences = context.getSharedPreferences(context.getString(R.string.login_info), Context.MODE_PRIVATE)
+        val username = preferences.getString(context.getString(R.string.username), null)
+        val password = preferences.getString(context.getString(R.string.password), null)
+        if (username == null || password == null) {
+            return null
+        }
+        return if (login(username, password)) AuthenticatedLoader(connection) else null
     }
 
     fun login(username: String, password: String, callback: (Boolean) -> Unit) {
@@ -108,43 +116,82 @@ class Loader {
         AsyncLocations(callback).execute()
     }
 
-    fun loadUser(): User? {
-        try {
-            val document = connection.get("https://donneurs.efs.sante.fr/Profil#/home").document
-            val tokenElement = document.getElementById("profilUserId")
-            val userIdElement = document.getElementById("profilUserCode")
-            if (tokenElement == null || userIdElement == null) {
-                return null
+    class AuthenticatedLoader(private val connection: WebConnection) : Loader() {
+
+        fun loadUser(): User? {
+            try {
+                val document = connection.get("https://donneurs.efs.sante.fr/Profil#/home").document
+                val tokenElement = document.getElementById("profilUserId")
+                val userIdElement = document.getElementById("profilUserCode")
+                if (tokenElement == null || userIdElement == null) {
+                    return null
+                }
+                val userId = userIdElement.attr("value")
+                val token = tokenElement.attr("value")
+                val params = "{userId: \"$userId\", token: \"$token\"}"
+                val json = connection.post(
+                    "https://donneurs.efs.sante.fr/api/services/webdonneur/donneurService/GetDonneurDetails",
+                    params
+                ).json
+                return User.parse(
+                    json.getJSONObject("result").getJSONObject("content").getJSONObject("value").getJSONObject(
+                        "donneur"
+                    )
+                )
+            } catch (e: WebConnectionException) {
+                Log.e("loadUser", "Cannot request the user details : " + e.message, e)
             }
-            val userId = userIdElement.attr("value")
-            val token = tokenElement.attr("value")
-            val params = "{userId: \"$userId\", token: \"$token\"}"
-            val json = connection.post(
-                "https://donneurs.efs.sante.fr/api/services/webdonneur/donneurService/GetDonneurDetails",
-                params
-            ).json
-            return User.parse(json)
-        } catch (e: WebConnectionException) {
-            Log.e("loadUser", "Cannot request the user details : " + e.message, e)
-        }
-        return null
-    }
-
-    fun asyncLoadUser(callback: (User?) -> Unit) {
-        AsyncLoadUser(this, callback).execute()
-    }
-
-    private class AsyncLoadUser internal constructor(
-        private val _loader: Loader,
-        private val callback: (User?) -> Unit
-    ) : AsyncTask<Void, Void, User?>() {
-
-        override fun doInBackground(vararg voids: Void): User? {
-            return _loader.loadUser()
+            return null
         }
 
-        override fun onPostExecute(user: User?) {
-            callback(user)
+        fun loadUser(callback: (User?) -> Unit) {
+            AsyncLoadUser(this, callback).execute()
+        }
+
+        private fun putUser(jsonUser: String): Boolean {
+            try {
+                val result = connection.post(
+                    "https://donneurs.efs.sante.fr/api/services/webdonneur/donneurService/Put",
+                    jsonUser
+                )
+                return result.json.getBoolean("success")
+            } catch (e: WebConnectionException) {
+                Log.e("putUser", "Cannot put the user details : " + e.message, e)
+            }
+            return false
+        }
+
+        fun putUser(jsonUser: String, callback: (Boolean) -> Unit) {
+            Log.d("putUser", jsonUser)
+            AsyncPutUser(this, jsonUser, callback).execute()
+        }
+
+        private class AsyncLoadUser internal constructor(
+            private val loader: AuthenticatedLoader,
+            private val callback: (User?) -> Unit
+        ) : AsyncTask<Void, Void, User?>() {
+
+            override fun doInBackground(vararg voids: Void): User? {
+                return loader.loadUser()
+            }
+
+            override fun onPostExecute(user: User?) {
+                callback(user)
+            }
+        }
+
+        private class AsyncPutUser(
+            private val loader: AuthenticatedLoader,
+            private val jsonUser: String,
+            private val callback: (Boolean) -> Unit
+        ) : AsyncTask<Void, Void, Boolean>() {
+            override fun doInBackground(vararg voids: Void): Boolean {
+                return loader.putUser(jsonUser)
+            }
+
+            override fun onPostExecute(success: Boolean) {
+                callback(success)
+            }
         }
     }
 
@@ -225,7 +272,10 @@ class Loader {
                 canBlood = element.getElementsByClass("Sang").size == 1,
                 canPlasma = element.getElementsByClass("Plasma").size == 1,
                 canPlatelet = element.getElementsByClass("Plaquettes").size == 1,
-                info = element.getElementsByClass("infos-text")[0].child(0).html().replace("<br>", "").trim().replace("&amp;", "&"),
+                info = element.getElementsByClass("infos-text")[0].child(0).html().replace(
+                    "<br>",
+                    ""
+                ).trim().replace("&amp;", "&"),
                 lat = latLong[0].split("=")[1].toFloat(),
                 long = latLong[1].split("=")[1].toFloat()
             )

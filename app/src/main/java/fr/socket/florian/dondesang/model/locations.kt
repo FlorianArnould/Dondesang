@@ -36,5 +36,5 @@ private fun distance(lat1: Float, long1: Float, lat2: Float, long2: Float): Floa
 
     val r = 6371f
 
-    return ( r * acos(cos(latitude1) * cos(latitude2) * cos(longitude2 - longitude1) + sin(latitude1) * sin(latitude2)) ).toFloat()
+    return (r * acos(cos(latitude1) * cos(latitude2) * cos(longitude2 - longitude1) + sin(latitude1) * sin(latitude2))).toFloat()
 }

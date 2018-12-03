@@ -14,6 +14,13 @@ internal class RepositoryViewHolder(private val view: View) : RecyclerView.ViewH
     fun update(repository: Repository) {
         title.text = repository.title
         description.text = repository.description
-        view.setOnClickListener { view -> view.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(repository.link))) }
+        view.setOnClickListener { view ->
+            view.context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(repository.link)
+                )
+            )
+        }
     }
 }

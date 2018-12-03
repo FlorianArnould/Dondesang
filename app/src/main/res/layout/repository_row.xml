@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:padding="20dp">
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:clickable="true"
+	android:focusable="true"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:padding="10dp"
+	android:paddingStart="20dp">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:contentDescription="@string/icon"
-        android:src="@drawable/ic_github" />
+	<ImageView
+		android:id="@+id/icon"
+		android:layout_width="35dp"
+		android:layout_height="35dp"
+		android:contentDescription="@string/icon"
+		android:src="@drawable/ic_github" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_toEndOf="@id/icon"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+	<TextView
+		android:id="@+id/title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="20dp"
+		android:layout_toEndOf="@id/icon"
+		android:text="Dondesang"
+		android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/icon"
-        android:textAppearance="@android:style/TextAppearance.Material.Body1" />
+	<TextView
+		android:id="@+id/description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/title"
+		android:layout_marginStart="20dp"
+		android:layout_marginTop="5dp"
+		android:layout_toEndOf="@id/icon"
+		android:text="Application android regroupant les services de l'EFS"
+		android:textAppearance="@android:style/TextAppearance.Material.Body1" />
 
 </RelativeLayout>

@@ -10,13 +10,33 @@ import fr.socket.florian.dondesang.R
 class AboutAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val messageRes = R.string.about_message
     private val headers = listOf(R.string.repository, R.string.icons, R.string.websites)
-    private val repositories = listOf(Repository("Dondesang", "Application Android regroupant les services de l'EFS", "https://github.com/FlorianArnould/Dondesang"))
+    private val repositories = listOf(
+        Repository(
+            "Dondesang",
+            "Application Android regroupant les services de l'EFS",
+            "https://github.com/FlorianArnould/Dondesang"
+        )
+    )
     private val icons = listOf(
-        Icon(R.drawable.ic_droplet, "Icon made by Karen Tyler from The Noun Project", "https://thenounproject.com/search/?q=droplet&i=341207"),
-        Icon(R.drawable.ic_github, "Icon made by Smashicons from www.flaticon.com", "https://smashicons.com/"))
+        Icon(
+            R.drawable.ic_droplet,
+            "Icon made by Karen Tyler from The Noun Project",
+            "https://thenounproject.com/search/?q=droplet&i=341207"
+        ),
+        Icon(R.drawable.ic_github, "Icon made by Smashicons from www.flaticon.com", "https://smashicons.com/")
+    )
     private val websites = listOf(
-        Website("Etablissement français du sang (EFS)", "Site officiel de Etablissement français du sang (EFS) regroupant énormement d'informations", "https://dondesang.efs.sante.fr/"),
-        Website("Espace donneur de l'EFS", "L'espace de l'Etablissement français du sang (EFS) dédié aux donneurs de sang", "https://donneurs.efs.sante.fr/"))
+        Website(
+            "Etablissement français du sang (EFS)",
+            "Site officiel de Etablissement français du sang (EFS) regroupant énormement d'informations",
+            "https://dondesang.efs.sante.fr/"
+        ),
+        Website(
+            "Espace donneur de l'EFS",
+            "L'espace de l'Etablissement français du sang (EFS) dédié aux donneurs de sang",
+            "https://donneurs.efs.sante.fr/"
+        )
+    )
 
     private var headerCounter: Int = 0
     private var repositoriesCounter: Int = 0
@@ -30,7 +50,7 @@ class AboutAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             iconsCounter = 0
             websitesCounter = 0
         }
-        return if(position == 0) MESSAGE_VIEW_TYPE
+        return if (position == 0) MESSAGE_VIEW_TYPE
         else if (position == 1 || position == repositories.size + 2 || position == repositories.size + icons.size + 3) HEADER_VIEW_TYPE
         else if (position < repositories.size + 2) REPOSITORY_VIEW_TYPE
         else if (position < icons.size + repositories.size + 3) ICON_VIEW_TYPE

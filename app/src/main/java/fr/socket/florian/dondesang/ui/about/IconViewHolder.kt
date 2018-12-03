@@ -16,6 +16,13 @@ internal class IconViewHolder(private val view: View) : RecyclerView.ViewHolder(
     fun update(iconObject: Icon) {
         icon.setImageResource(iconObject.drawableRes)
         message.text = iconObject.message
-        view.setOnClickListener { view -> view.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(iconObject.link))) }
+        view.setOnClickListener { view ->
+            view.context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(iconObject.link)
+                )
+            )
+        }
     }
 }
