@@ -9,6 +9,6 @@ class BootBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("SignalBoot", "Broadcast received")
-        NotificationJob.schedule(context)
+        NotificationWorker.schedule()
     }
 }

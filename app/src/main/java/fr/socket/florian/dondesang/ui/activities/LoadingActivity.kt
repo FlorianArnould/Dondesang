@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import fr.socket.florian.dondesang.R
-import fr.socket.florian.dondesang.service.NotificationJob
+import fr.socket.florian.dondesang.service.NotificationWorker
 
 class LoadingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
-        NotificationJob.schedule(this)
+        NotificationWorker.schedule()
         window.statusBarColor = getColor(R.color.colorPrimary)
         window.navigationBarColor = getColor(R.color.colorPrimary)
         Handler().postDelayed({
